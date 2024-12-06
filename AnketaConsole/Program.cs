@@ -38,8 +38,10 @@
         {
             Console.WriteLine("Enter your name:");
             String userName = Console.ReadLine();
+
             Console.WriteLine("Enter your surname:");
             String surName = Console.ReadLine();
+
             CoutMessage coutMessage = () => Console.WriteLine("Enter your age:");
             coutMessage();
             int age = 0;
@@ -56,10 +58,11 @@
             if (havePet)
             {
                 coutMessage = () => Console.WriteLine("How many pets do you have?");
-                bool isPetCountCorrect = int.TryParse(Console.ReadLine(), out petCount);//Обработать исключение
+                coutMessage();
+                bool isPetCountCorrect = int.TryParse(Console.ReadLine(), out petCount);
                 if (!isPetCountCorrect || petCount <= 0)
                 {
-                    age = CheckCorrectInput(isAgeCorrect, age, "Pet count", coutMessage);
+                    petCount = CheckCorrectInput(isPetCountCorrect, petCount, "Pet count", coutMessage);
                 }
             }
             string[] petNames;
@@ -67,9 +70,15 @@
             {
                 petNames = FillPetNames(petCount);
             }
-            Console.WriteLine("What the count of your favorite colors?");
+            
+            coutMessage = () => Console.WriteLine("What the count of your favorite colors?");
+            coutMessage();
             int favoriteColorCount = 0;
             bool isCorrectFavoriteColorCount = int.TryParse(Console.ReadLine(), out favoriteColorCount);
+            if (!isCorrectFavoriteColorCount || favoriteColorCount <= 0)
+            {
+                favoriteColorCount = CheckCorrectInput(isCorrectFavoriteColorCount, favoriteColorCount, "Favorite colors count", coutMessage);
+            }
             string[] favoriteColors;
             if (favoriteColorCount > 0)
             {
