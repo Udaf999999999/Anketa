@@ -23,7 +23,7 @@
             }
             return favoriteColors;
         }
-        private static int CheckCorrectInput(bool isCorrect,int number, string typeVar, CoutMessage coutMessage)
+        private static int CheckCorrectInput(bool isCorrect, int number, string typeVar, CoutMessage coutMessage)
         {
             while (!isCorrect || number <= 0)
             {
@@ -34,13 +34,13 @@
             }
             return number;
         }
-        private static void FillAnketa()
+        private static (String, String, int, bool, int, string[], int, string[]) FillAnketa()
         {
             Console.WriteLine("Enter your name:");
             String userName = Console.ReadLine();
 
             Console.WriteLine("Enter your surname:");
-            String surName = Console.ReadLine();
+            String userSurname = Console.ReadLine();
 
             CoutMessage coutMessage = () => Console.WriteLine("Enter your age:");
             coutMessage();
@@ -65,12 +65,12 @@
                     petCount = CheckCorrectInput(isPetCountCorrect, petCount, "Pet count", coutMessage);
                 }
             }
-            string[] petNames;
+            string[] petNames = null;
             if (petCount > 0)
             {
                 petNames = FillPetNames(petCount);
             }
-            
+
             coutMessage = () => Console.WriteLine("What the count of your favorite colors?");
             coutMessage();
             int favoriteColorCount = 0;
@@ -79,21 +79,50 @@
             {
                 favoriteColorCount = CheckCorrectInput(isCorrectFavoriteColorCount, favoriteColorCount, "Favorite colors count", coutMessage);
             }
-            string[] favoriteColors;
+            string[] favoriteColors = null;
             if (favoriteColorCount > 0)
             {
 
                 favoriteColors = FillFavoriteColor(favoriteColorCount);
             }
 
-
+            return (userName, userSurname, age, havePet, petCount, petNames, favoriteColorCount, favoriteColors);
+        }
+        public static void ShowAnketa(String userName, String userSurname, int age, bool havePet, int petCount,
+                string[] petNames, int favoriteColorCount, string[] favoriteColors)
+        {
+            Console.Write("User's name: ");
+            Console.WriteLine(userName);
+            Console.Write("User's Surname: ");
+            Console.WriteLine(userSurname);
+            Console.Write("User's age: ");
+            Console.WriteLine(age);
+            if (havePet)
+            {
+                Console.WriteLine("User have " + petCount + " pets:");
+                for (int i = 0; i < petCount; i++)
+                {
+                    Console.WriteLine((i + 1) + " " + petNames[i]);
+                }
+            }
+            else
+            {
+                Console.WriteLine("User havn't got any pets.");
+            }
+            Console.WriteLine("User's favorite colors:");
+            for (int i = 0; i < favoriteColorCount; i++)
+            {
+                Console.WriteLine((i + 1) + " " + favoriteColors[i]);
+            }
 
 
         }
         static void Main(string[] args)
         {
-            FillAnketa();
-            Console.WriteLine("Hello, World!");
+            (String userName, String userSurname, int age, bool havePet, int petCount,
+                string[] petNames, int favoriteColorCount, string[] favoriteColors) user = FillAnketa();
+            ShowAnketa(user.userName, user.userSurname, user.age, user.havePet, user.petCount,
+                user.petNames, user.favoriteColorCount, user.favoriteColors);
         }
     }
 }
