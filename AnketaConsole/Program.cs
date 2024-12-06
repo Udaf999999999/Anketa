@@ -13,7 +13,7 @@
             }
             return petNames;
         }
-        private static string[] FillFavoriteColor(int favoriteColorCount)
+        private static string[] FillFavoriteColors(int favoriteColorCount)
         {
             string[] favoriteColors = new string[favoriteColorCount];
             for (int i = 0; i < favoriteColorCount; i++)
@@ -83,7 +83,7 @@
             if (favoriteColorCount > 0)
             {
 
-                favoriteColors = FillFavoriteColor(favoriteColorCount);
+                favoriteColors = FillFavoriteColors(favoriteColorCount);
             }
 
             return (userName, userSurname, age, havePet, petCount, petNames, favoriteColorCount, favoriteColors);
@@ -114,8 +114,6 @@
             {
                 Console.WriteLine((i + 1) + " " + favoriteColors[i]);
             }
-
-
         }
         static void Main(string[] args)
         {
